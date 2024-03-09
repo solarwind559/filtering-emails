@@ -1,15 +1,12 @@
 <?php
 
-// require('php/db.php');
-require('php/sorter.php');
-require('php/filter-buttons.php');
-
+require('oop/sorter.php');
+require('oop/filter-buttons.php');
 
 $db = new Database();
 $sql = "SELECT * FROM emails";
 $data = $db->fetchData($sql);
 
-// Usage example:
 $emailProviderFilter = new EmailProviderFilter();
 $emailProviders = $emailProviderFilter->getEmailProviders();
 $selectedProvider = $_POST['provider'] ?? ''; // Get selected provider from form submission
@@ -32,15 +29,13 @@ if (isset($_GET['sort'])) {
 }
 
 // Get the sorted emails
-// $sortedData = $emailSorter->getEmails();
 $filteredAndSortedData = $emailSorter->getEmails();
-
 
 ?>
 
 <body>
     <!-- Display filter buttons -->
-    <p>Sort by:</p>
+    <p>Show only:</p>
     <form method="post">
         <?php
         foreach (array_keys($emailProviders) as $provider) {
@@ -50,11 +45,10 @@ $filteredAndSortedData = $emailSorter->getEmails();
     </form>
 
    <!-- Display sorting options -->
-   <p>Sort by:
-        <a href="?sort=email">Email</a>
-        <a href="?sort=date">Date</a>
-    </p>
-
+   <p>Sort by: </p>
+   <button><a href="?sort=email">Email</a></button>
+   <button><a href="?sort=date">Date</a></button>
+        
 <!-- Display the sorted data in an HTML table -->
 <table>
     <thead>
@@ -74,9 +68,4 @@ $filteredAndSortedData = $emailSorter->getEmails();
         ?>
     </tbody>
 </table>
-
-
-
-
-
 </body>
