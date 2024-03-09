@@ -41,20 +41,6 @@ class EmailProviderFilter
         return $filteredData;
     }
 
-    public function sortByEmail(&$data)
-    {
-        usort($data, function ($a, $b) {
-            return strcasecmp($a['email'], $b['email']);
-        });
-    }
-
-    public function sortByDate(&$data)
-    {
-        usort($data, function ($a, $b) {
-            return strtotime($a['date']) - strtotime($b['date']);
-        });
-    }
-
     private function getAllData()
     {
         $sql = "SELECT * FROM emails";
